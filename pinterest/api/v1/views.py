@@ -4,8 +4,20 @@ from rest_framework.decorators import api_view
 from pinterest.models import Movie
 from .serializers import MovieSerializer
 
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, BasePermission
+
+
+class UserCanDeleteMovie(BasePermission):
+
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name='CanDelete').exists():
+            return True
+        return False
+
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def hello(request):
     data= {'message from rest api'}
     return Response(data=data)
@@ -42,6 +54,7 @@ def movie_create(request):
 
 
 @api_view(['DELETE'])
+@permission_classes([UserCanDeleteMovie])
 def movie_delete(request, pk):
     response = {}
     try:

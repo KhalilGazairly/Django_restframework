@@ -20,7 +20,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pinterest/', include('pinterest.api.v1.urls')),
-    path('admin/', admin.site.urls),
+    path('account/', include('account.api.v1.urls')),
 ]
 
 if settings.DEBUG:

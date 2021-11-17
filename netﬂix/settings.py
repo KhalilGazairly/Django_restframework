@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'pinterest'
+    'rest_framework.authtoken',
+    'pinterest',
+    'account.apps.AccountConfig'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,10 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/home/khalil-gazairly/workspace/netﬂix/media_root'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication'],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+}
+
+# AUTH_USER_MODEL = 'account.PinterestUser'
